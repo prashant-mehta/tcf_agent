@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2011 Wind River Systems, Inc. and others.
+ * Copyright (c) 2007, 2011 Wind River Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * and Eclipse Distribution License v1.0 which accompany this distribution.
@@ -14,17 +14,13 @@
  *******************************************************************************/
 
 /*
- * Sample TCF service header file.
- * Modified to print UTC and Local date and time
- * tcf Daytime getTimeOfDay "anyString"
+ * Services initialization code extension point.
+ * If the agent is built with additional user-defined services,
+ * a customized version of services-ext.h file can be added to compiler headers search paths.
  */
 
-#ifndef DAYTIME_H_
-#define DAYTIME_H_
+#include <tcf/services/command.h>
 
-#include <tcf/config.h>
-#include <tcf/framework/protocol.h>
-
-extern void ini_daytime_service(Protocol * proto);
-
-#endif /*DAYTIME_H_*/
+static void ini_ext_services(Protocol * proto, TCFBroadcastGroup * bcg) {
+    ini_command_service(proto);
+}

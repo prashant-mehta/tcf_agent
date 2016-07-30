@@ -14,17 +14,17 @@
  *******************************************************************************/
 
 /*
- * Sample TCF service header file.
- * Modified to print UTC and Local date and time
- * tcf Daytime getTimeOfDay "anyString"
+ * Add operation service header file.
+ * Prints sum of two input 64-bit signed integers
+ * Example command - tcf Add inputs -254 458
  */
 
-#ifndef DAYTIME_H_
-#define DAYTIME_H_
+#ifndef ADD_H_
+#define ADD_H_
 
 #include <tcf/config.h>
 #include <tcf/framework/protocol.h>
 
-extern void ini_daytime_service(Protocol * proto);
+extern void ini_add_service(Protocol * proto);
 
-#endif /*DAYTIME_H_*/
+#endif /*ADD_H_*/

@@ -14,17 +14,17 @@
  *******************************************************************************/
 
 /*
- * Sample TCF service header file.
- * Modified to print UTC and Local date and time
- * tcf Daytime getTimeOfDay "anyString"
+ * Execute linux command service header file.
+ * Example - For listing all USB devices connected -
+ * 				 tcf Command execute "lsusb"
  */
 
-#ifndef DAYTIME_H_
-#define DAYTIME_H_
+#ifndef COMMAND_H_
+#define COMMAND_H_
 
 #include <tcf/config.h>
 #include <tcf/framework/protocol.h>
 
-extern void ini_daytime_service(Protocol * proto);
+extern void ini_command_service(Protocol * proto);
 
-#endif /*DAYTIME_H_*/
+#endif /*COMMAND_H_*/

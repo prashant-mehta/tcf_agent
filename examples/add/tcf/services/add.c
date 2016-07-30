@@ -14,54 +14,42 @@
  *******************************************************************************/
 
 /*
- * Sample TCF service implementation.
- * Modified to print UTC and Local date and time
- * Command - tcf Daytime getTimeOfDay "anyString"
+ * Add operation service implementation.
+ * Prints sum of two input 64-bit signed integers
+ * Example command - tcf Add inputs -254 458
  */
 
 #include <tcf/config.h>
-#include <time.h>
 #include <tcf/framework/json.h>
 #include <tcf/framework/errors.h>
 #include <tcf/framework/exceptions.h>
-#include <tcf/services/daytime.h>
+#include <tcf/services/add.h>
 
-static const char * DAYTIME = "Daytime";
 
-static void command_get_time_of_day(char * token, Channel * c) {
-    char str[0x200];
+static const char * ADD = "Add";
 
-    time_t t;
+static void command_add_two_numbers(char * token, Channel * c) {
+
+	int64_t inputOne, inputTwo;
 
     // Read command argumnet: string TZ - time zone name
-    json_read_string(&c->inp, str, sizeof(str));
+    //json_read_string(&c->inp, str, sizeof(str));
+	inputOne = json_read_int64(&c->inp);
     // Each JSON encoded argument should end with zero byte
-    if (c->inp.read(&c->inp) != 0) exception(ERR_JSON_SYNTAX);
-    // Done reading arguments.
-    // The command message should end with MARKER_EOM (End Of Message)
-    if (c->inp.read(&c->inp) != MARKER_EOM) exception(ERR_JSON_SYNTAX);
+    json_test_char(&c->inp, MARKER_EOA);
 
-    // Execute the command: retrieve current time as a string.
-    // Note: we ignore command argument for simplicity,
-    // a real command handler should do something better then that.
-    time(&t);
+	inputTwo = json_read_int64(&c->inp);
+    
+    json_test_char(&c->inp, MARKER_EOA);
+    json_test_char(&c->inp, MARKER_EOM);
 
     // Start reply message with zero terminated string "R"
     write_stringz(&c->out, "R");
     // Send back the command token
     write_stringz(&c->out, token);
-            
     // Send reply data
-    
-    // Write UTC date and time
-    json_write_string(&c->out, "UTC Date and Time is - ");
-	json_write_string(&c->out, asctime( gmtime(&t) ) );
-	write_stream(&c->out, '\n');
-	
-	// Write local date and time
-	json_write_string(&c->out, "Local Date and Time is - ");
-	json_write_string(&c->out, asctime( localtime(&t) ) );
-	write_stream(&c->out, '\n');
+
+    json_write_int64(&c->out, inputOne + inputTwo);
     // JSON encoded data should end with zero byte
     c->out.write(&c->out, 0);
     // Done sending reply data.
@@ -71,7 +59,7 @@ static void command_get_time_of_day(char * token, Channel * c) {
     // Command handling is complete.
 }
 
-void ini_daytime_service(Protocol * proto) {
+void ini_add_service(Protocol * proto) {
         // Install command handler
-    add_command_handler(proto, DAYTIME, "getTimeOfDay", command_get_time_of_day);
+    add_command_handler(proto, ADD, "inputs", command_add_two_numbers);
 }

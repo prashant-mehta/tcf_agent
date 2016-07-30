@@ -19,3 +19,5 @@ tcf Diagnostics echoERR { }
 tcf Diagnostics echoERR { } null { "Code" : 1, "Time" : 334, "Array" : [ 1, 2, 3 ] }
 
 tcf Diagnostics getTestList
+
+tcf Daytime getTimeOfDay "de"
