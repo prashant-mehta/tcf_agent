@@ -42,6 +42,10 @@
 #  define SERVICE_FileSystem    1
 #endif
 
+#if !defined(SERVICE_Command)
+#  define SERVICE_Command    1
+#endif
+
 #if !defined(SERVICE_SysMonitor)
 #  define SERVICE_SysMonitor    TARGET_UNIX
 #endif
