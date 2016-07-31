@@ -45,6 +45,7 @@
 #include <tcf/services/disassembly.h>
 #include <tcf/services/profiler.h>
 #include <tcf/services/profiler_sst.h>
+#include <tcf/services/command.h>
 #include <tcf/main/services.h>
 
 #include <tcf/main/services-ext.h>
@@ -52,6 +53,9 @@
 void ini_services(Protocol * proto, TCFBroadcastGroup * bcg) {
 #if SERVICE_Locator
     ini_locator_service(proto, bcg);
+#endif
+#if SERVICE_Command
+	ini_command_service(proto);
 #endif
 #if SERVICE_ContextQuery
     ini_context_query_service(proto);

@@ -64,6 +64,9 @@
 #if !defined(SERVICE_Locator)
 #define SERVICE_Locator         (TARGET_UNIX || TARGET_VXWORKS || TARGET_WINDOWS || TARGET_SYMBIAN)
 #endif
+#if !defined(SERVICE_Command)
+#define SERVICE_Command         (TARGET_UNIX)
+#endif
 #if !defined(SERVICE_RunControl)
 #define SERVICE_RunControl      (TARGET_UNIX || TARGET_VXWORKS || TARGET_WINDOWS)
 #endif

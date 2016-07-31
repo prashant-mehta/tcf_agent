@@ -42,6 +42,7 @@
 #define SERVICE_Processes       0
 #define SERVICE_Terminals       0
 #define SERVICE_ContextQuery    0
+#define SERVICE_Command         1
 #define SERVICE_RunControl      0
 #define SERVICE_Breakpoints     0
 #define SERVICE_Memory          0
